@@ -17,16 +17,12 @@ module.exports = {
 
     return {
       statusCode: code ? code : 200,
-      headers: {
-        'Access-Control-Allow-Origin': process.env.CORS_URL || 'https://www.aat.org.uk'
-      },
       body: JSON.stringify(data)
     }
   },
 
   /**
    * Response with a 404 Not found or given message.
-   * NOTE: It is used internally by the Actions class,
    * the returned object is meant to have a message property
    * @param message
    * @returns
@@ -40,7 +36,7 @@ module.exports = {
   },
 
   /**
-   * Response with a 301 to redirect to different url.
+   * Response with a 307 Temporary Redirect to different url.
    *
    * @param url
    * @returns
@@ -51,9 +47,8 @@ module.exports = {
     }
 
     return {
-      statusCode: statusCode || 302,
+      statusCode: statusCode || 307,
       headers: {
-        'Access-Control-Allow-Origin': process.env.CORS_URL || 'https://www.aat.org.uk',
         Location: url
       }
     };
@@ -73,9 +68,6 @@ module.exports = {
 
     return {
       statusCode: err && err.statusCode ? err.statusCode : 400,
-      headers: {
-        'Access-Control-Allow-Origin': process.env.CORS_URL || 'https://www.aat.org.uk'
-      },
       body: JSON.stringify({
         'message': err && err.message ? err.message : err,
         'errors': err && err.errors ? err.errors : null

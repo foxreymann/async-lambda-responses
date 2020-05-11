@@ -17,6 +17,10 @@ module.exports = {
 
     return {
       statusCode: code ? code : 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      },
       body: JSON.stringify(data)
     }
   },
@@ -49,6 +53,8 @@ module.exports = {
     return {
       statusCode: statusCode || 307,
       headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
         Location: url
       }
     };
@@ -68,6 +74,10 @@ module.exports = {
 
     return {
       statusCode: err && err.statusCode ? err.statusCode : 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      },
       body: JSON.stringify({
         'message': err && err.message ? err.message : err,
         'errors': err && err.errors ? err.errors : null
